@@ -33,7 +33,7 @@ enum {
  * All of these are pointers to structures, and all of those structures start with a pointer, and a type.
  * The xmlKind struct is used as a generic structure, and a stepping stone.
  * We use it to check the type of a structure, and then perform the appropriate cast.
- * 
+ *
  * For example:
  * if(genericPtr->type == XML_ATTRIBUTE_NODE)
  * {
@@ -69,7 +69,7 @@ typedef struct _xmlStd *xmlStdPtr;
 {
 	// Every DDXML object is simply a wrapper around an underlying libxml node
 	xmlKindPtr genericPtr;
-	
+
 	// The xmlNsPtr type doesn't store a reference to it's parent
 	// This is here to fix that problem, and make this class more compatible with the NSXML classes
 	xmlNodePtr nsParentPtr;

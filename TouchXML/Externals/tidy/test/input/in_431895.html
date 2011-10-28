@@ -4,7 +4,7 @@
                           bug-2001-01-03-a.html
 
 Problem:
-  The "gnu-emacs" option reports the filename, line number, and column   
+  The "gnu-emacs" option reports the filename, line number, and column
   number in error and warning messages.  However, the filename is not set
   when processing XML or if the "-quiet" option is used when processing
   HTML; "(null)" is reported instead.
@@ -15,7 +15,7 @@ Expected behavior:
 
 Verification:
   tidy -q -e --gnu-emacs yes bug-2001-01-03-a.html
-    
+
 Correction:
   localize.c ()
   tidy.c (main)

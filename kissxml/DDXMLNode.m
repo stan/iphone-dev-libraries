@@ -22,7 +22,7 @@
 	DDXMLElement *result = [[[DDXMLElement alloc] initWithName:name] autorelease];
 	[result setChildren:children];
 	[result setAttributes:attributes];
-	
+
 	return result;
 }
 
@@ -34,17 +34,17 @@
 + (id)attributeWithName:(NSString *)name stringValue:(NSString *)stringValue
 {
 	xmlAttrPtr attr = xmlNewProp(NULL, [name xmlChar], [stringValue xmlChar]);
-	
+
 	return [DDXMLNode nodeWithPrimitive:(xmlKindPtr)attr];
 }
 
 + (id)attributeWithName:(NSString *)name URI:(NSString *)URI stringValue:(NSString *)stringValue
 {
 	xmlAttrPtr attr = xmlNewProp(NULL, [name xmlChar], [stringValue xmlChar]);
-	
+
 	DDXMLNode *result = [[[DDXMLNode alloc] initWithPrimitive:(xmlKindPtr)attr] autorelease];
 	[result setURI:URI];
-	
+
 	return result;
 }
 
@@ -52,30 +52,30 @@
 {
 	// If the user passes a nil or empty string name, they are trying to create a default namespace
 	const xmlChar *xmlName = [name length] > 0 ? [name xmlChar] : NULL;
-	
+
 	xmlNsPtr ns = xmlNewNs(NULL, [stringValue xmlChar], xmlName);
-	
+
 	return [DDXMLNode nodeWithPrimitive:(xmlKindPtr)ns];
 }
 
 + (id)processingInstructionWithName:(NSString *)name stringValue:(NSString *)stringValue
 {
 	xmlNodePtr procInst = xmlNewPI([name xmlChar], [stringValue xmlChar]);
-	
+
 	return [DDXMLNode nodeWithPrimitive:(xmlKindPtr)procInst];
 }
 
 + (id)commentWithStringValue:(NSString *)stringValue
 {
 	xmlNodePtr comment = xmlNewComment([stringValue xmlChar]);
-	
+
 	return [DDXMLNode nodeWithPrimitive:(xmlKindPtr)comment];
 }
 
 + (id)textWithStringValue:(NSString *)stringValue
 {
 	xmlNodePtr text = xmlNewText([stringValue xmlChar]);
-	
+
 	return [DDXMLNode nodeWithPrimitive:(xmlKindPtr)text];
 }
 
@@ -95,7 +95,7 @@
 		[super dealloc];
 		return nil;
 	}
-	
+
 	if(self = [super init])
 	{
 		genericPtr = nodePtr;
@@ -117,7 +117,7 @@
 		[super dealloc];
 		return nil;
 	}
-	
+
 	if(self = [super init])
 	{
 		genericPtr = nodePtr;
@@ -155,7 +155,7 @@
 	if([self isXmlNsPtr])
 	{
 		xmlNsPtr ns = (xmlNsPtr)genericPtr;
-		
+
 		xmlFree((xmlChar *)ns->prefix);
 		ns->prefix = xmlStrdup([name xmlChar]);
 	}
@@ -187,14 +187,14 @@
 	if([self isXmlNsPtr])
 	{
 		xmlNsPtr ns = (xmlNsPtr)genericPtr;
-		
+
 		xmlFree((xmlChar *)ns->href);
 		ns->href = xmlEncodeSpecialChars(NULL, [string xmlChar]);
 	}
 	else if([self isXmlAttrPtr])
 	{
 		xmlAttrPtr attr = (xmlAttrPtr)genericPtr;
-		
+
 		if(attr->children != NULL)
 		{
 			xmlChar *escapedString = xmlEncodeSpecialChars(attr->doc, [string xmlChar]);
@@ -210,11 +210,11 @@
 	else if([self isXmlNodePtr])
 	{
 		xmlStdPtr node = (xmlStdPtr)genericPtr;
-		
+
 		// Setting the content of a node erases any existing child nodes.
 		// Therefore, we need to remove them properly first.
 		[[self class] removeAllChildrenFromNode:(xmlNodePtr)node];
-		
+
 		xmlChar *escapedString = xmlEncodeSpecialChars(node->doc, [string xmlChar]);
 		xmlNodeSetContent((xmlNodePtr)node, escapedString);
 		xmlFree(escapedString);
@@ -223,7 +223,7 @@
 
 /**
  * Returns the content of the receiver as a string value.
- * 
+ *
  * If the receiver is a node object of element kind, the content is that of any text-node children.
  * This method recursively visits elements nodes and concatenates their text nodes in document order with
  * no intervening spaces.
@@ -237,24 +237,24 @@
 	else if([self isXmlAttrPtr])
 	{
 		xmlAttrPtr attr = (xmlAttrPtr)genericPtr;
-		
+
 		if(attr->children != NULL)
 		{
 			return [NSString stringWithUTF8String:(const char *)attr->children->content];
 		}
-		
+
 		return nil;
 	}
 	else if([self isXmlNodePtr])
 	{
 		xmlChar *content = xmlNodeGetContent((xmlNodePtr)genericPtr);
-		
+
 		NSString *result = [NSString stringWithUTF8String:(const char *)content];
-		
+
 		xmlFree(content);
 		return result;
 	}
-	
+
 	return nil;
 }
 
@@ -272,9 +272,9 @@
 	{
 		// The xmlNsPtr has no prev pointer, so we have to search from the parent
 		if(nsParentPtr == NULL) return 0;
-		
+
 		xmlNsPtr currentNs = nsParentPtr->nsDef;
-		
+
 		NSUInteger result = 0;
 		while(currentNs != NULL)
 		{
@@ -287,16 +287,16 @@
 		}
 		return 0;
 	}
-	
+
 	xmlStdPtr currentNode = ((xmlStdPtr)genericPtr)->prev;
-	
+
 	NSUInteger result = 0;
 	while(currentNode != NULL)
 	{
 		result++;
 		currentNode = currentNode->prev;
 	}
-	
+
 	return result;
 }
 
@@ -311,14 +311,14 @@
 		currentNode = nsParentPtr;
 	else
 		currentNode = ((xmlStdPtr)genericPtr)->parent;
-	
+
 	NSUInteger result = 0;
 	while(currentNode != NULL)
 	{
 		result++;
 		currentNode = currentNode->parent;
 	}
-	
+
 	return result;
 }
 
@@ -334,7 +334,7 @@
 		node = (xmlStdPtr)nsParentPtr;
 	else
 		node = (xmlStdPtr)genericPtr;
-	
+
 	if((node == NULL) || (node->doc == NULL))
 		return nil;
 	else
@@ -343,7 +343,7 @@
 
 /**
  * Returns the parent node of the receiver.
- * 
+ *
  * Document nodes and standalone nodes (that is, the root of a detached branch of a tree) have no parent, and
  * sending this message to them returns nil. A one-to-one relationship does not always exists between a parent and
  * its children; although a namespace or attribute node cannot be a child, it still has a parent element.
@@ -358,9 +358,9 @@
 		}
 		return nil;
 	}
-	
+
 	xmlStdPtr node = (xmlStdPtr)genericPtr;
-	
+
 	if(node->parent == NULL)
 		return nil;
 	else
@@ -374,16 +374,16 @@
 - (NSUInteger)childCount
 {
 	if(![self isXmlDocPtr] && ![self isXmlNodePtr] && ![self isXmlDtdPtr]) return 0;
-	
+
 	NSUInteger result = 0;
-	
+
 	xmlNodePtr child = ((xmlStdPtr)genericPtr)->children;
 	while(child != NULL)
 	{
 		result++;
 		child = child->next;
 	}
-	
+
 	return result;
 }
 
@@ -393,75 +393,75 @@
 - (NSArray *)children
 {
 	if(![self isXmlDocPtr] && ![self isXmlNodePtr] && ![self isXmlDtdPtr]) return nil;
-	
+
 	NSMutableArray *result = [NSMutableArray array];
-	
+
 	xmlNodePtr child = ((xmlStdPtr)genericPtr)->children;
 	while(child != NULL)
 	{
 		DDXMLNode *childNode = [[DDXMLNode alloc] initWithPrimitive:(xmlKindPtr)child];
-		
+
 		[result addObject:childNode];
 		[childNode release];
-		
+
 		child = child->next;
 	}
-	
+
 	return [[result copy] autorelease];
 }
 
 /**
  * Returns the child node of the receiver at the specified location.
  * Returns a DDXMLNode object or nil if the receiver has no children.
- * 
+ *
  * If the receive has children and index is out of bounds, an exception is raised.
- * 
+ *
  * The receiver should be a DDXMLNode object representing a document, element, or document type declaration.
  * The returned node object can represent an element, comment, text, or processing instruction.
 **/
 - (DDXMLNode *)childAtIndex:(NSUInteger)index
 {
 	if(![self isXmlDocPtr] && ![self isXmlNodePtr] && ![self isXmlDtdPtr]) return nil;
-	
+
 	NSUInteger i = 0;
-	
+
 	xmlNodePtr child = ((xmlStdPtr)genericPtr)->children;
-	
+
 	if(child == NULL)
 	{
 		// NSXML doesn't raise an exception if there are no children
 		return nil;
 	}
-	
+
 	while(child != NULL)
 	{
 		if(i == index)
 		{
 			return [DDXMLNode nodeWithPrimitive:(xmlKindPtr)child];
 		}
-		
+
 		i++;
 		child = child->next;
 	}
-	
+
 	// NSXML version uses this same assertion
 	DDCheck(NO, @"index (%u) beyond bounds (%u)", (unsigned)index, (unsigned)i);
-	
+
 	return nil;
 }
 
 /**
  * Returns the previous DDXMLNode object that is a sibling node to the receiver.
- * 
+ *
  * This object will have an index value that is one less than the receiver’s.
  * If there are no more previous siblings (that is, other child nodes of the receiver’s parent) the method returns nil.
 **/
 - (DDXMLNode *)previousSibling
 {
 	if([self isXmlNsPtr]) return nil;
-	
+
 	xmlStdPtr node = (xmlStdPtr)genericPtr;
-	
+
 	if(node->prev == NULL)
 		return nil;
 	else
@@ -470,7 +470,7 @@
 
 /**
  * Returns the next DDXMLNode object that is a sibling node to the receiver.
- * 
+ *
  * This object will have an index value that is one more than the receiver’s.
  * If there are no more subsequent siblings (that is, other child nodes of the receiver’s parent) the
  * method returns nil.
@@ -478,9 +478,9 @@
 - (DDXMLNode *)nextSibling
 {
 	if([self isXmlNsPtr]) return nil;
-	
+
 	xmlStdPtr node = (xmlStdPtr)genericPtr;
-	
+
 	if(node->next == NULL)
 		return nil;
 	else
@@ -489,7 +489,7 @@
 
 /**
  * Returns the previous DDXMLNode object in document order.
- * 
+ *
  * You use this method to “walk” backward through the tree structure representing an XML document or document section.
  * (Use nextNode to traverse the tree in the opposite direction.) Document order is the natural order that XML
  * constructs appear in markup text. If you send this message to the first node in the tree (that is, the root element),
@@ -498,12 +498,12 @@
 - (DDXMLNode *)previousNode
 {
 	if([self isXmlNsPtr] || [self isXmlAttrPtr]) return nil;
-	
+
 	// If the node has a previous sibling,
 	// then we need the last child of the last child of the last child etc
-	
+
 	// Note: Try to accomplish this task without creating dozens of intermediate wrapper objects
-	
+
 	xmlStdPtr previousSibling = ((xmlStdPtr)genericPtr)->prev;
 	if(previousSibling != NULL)
 	{
@@ -514,7 +514,7 @@
 			{
 				lastChild = lastChild->last;
 			}
-			
+
 			return [DDXMLNode nodeWithPrimitive:(xmlKindPtr)lastChild];
 		}
 		else
@@ -523,15 +523,15 @@
 			return [DDXMLNode nodeWithPrimitive:(xmlKindPtr)previousSibling];
 		}
 	}
-	
+
 	// If there are no previous siblings, then the previous node is simply the parent
-	
+
 	return [self parent];
 }
 
 /**
  * Returns the next DDXMLNode object in document order.
- * 
+ *
  * You use this method to “walk” forward through the tree structure representing an XML document or document section.
  * (Use previousNode to traverse the tree in the opposite direction.) Document order is the natural order that XML
  * constructs appear in markup text. If you send this message to the last node in the tree, nil is returned.
@@ -540,23 +540,23 @@
 - (DDXMLNode *)nextNode
 {
 	if([self isXmlNsPtr] || [self isXmlAttrPtr]) return nil;
-	
+
 	// If the node has children, then next node is the first child
 	DDXMLNode *firstChild = [self childAtIndex:0];
 	if(firstChild)
 		return firstChild;
-	
+
 	// If the node has a next sibling, then next node is the same as next sibling
-	
+
 	DDXMLNode *nextSibling = [self nextSibling];
 	if(nextSibling)
 		return nextSibling;
-	
+
 	// There are no children, and no more siblings, so we need to get the next sibling of the parent.
 	// If that is nil, we need to get the next sibling of the grandparent, etc.
-	
+
 	// Note: Try to accomplish this task without creating dozens of intermediate wrapper objects
-	
+
 	xmlNodePtr parent = ((xmlStdPtr)genericPtr)->parent;
 	while(parent != NULL)
 	{
@@ -566,7 +566,7 @@
 		else
 			parent = parent->parent;
 	}
-	
+
 	return nil;
 }
 
@@ -586,11 +586,11 @@
 		}
 		return;
 	}
-	
+
 	xmlStdPtr node = (xmlStdPtr)genericPtr;
-	
+
 	if(node->parent == NULL) return;
-	
+
 	if([self isXmlAttrPtr])
 	{
 		[[self class] detachAttribute:(xmlAttrPtr)node fromNode:node->parent];
@@ -607,7 +607,7 @@
 
 /**
  * Returns the local name of the receiver.
- * 
+ *
  * The local name is the part of a node name that follows a namespace-qualifying colon or the full name if
  * there is no colon. For example, “chapter” is the local name in the qualified name “acme:chapter”.
 **/
@@ -622,13 +622,13 @@
 		else
 			return @"";
 	}
-	
+
 	return [[self class] localNameForName:[self name]];
 }
 
 /**
  * Returns the prefix of the receiver’s name.
- * 
+ *
  * The prefix is the part of a namespace-qualified name that precedes the colon.
  * For example, “acme” is the local name in the qualified name “acme:chapter”.
  * This method returns an empty string if the receiver’s name is not qualified by a namespace.
@@ -640,7 +640,7 @@
 		// Strangely enough, the localName of a namespace is the prefix, and the prefix is an empty string
 		return @"";
 	}
-	
+
 	return [[self class] prefixForName:[self name]];
 }
 
@@ -654,13 +654,13 @@
 	{
 		// Note: xmlAttrPtr and xmlNodePtr both have the same ns pointer, so
 		// in this case it's safe to cast a xmlAttrPtr to a xmlNodePtr.
-		
+
 		xmlNodePtr node = (xmlNodePtr)genericPtr;
 		if(node->ns != NULL)
 		{
 			[[self class] removeNamespace:node->ns fromNode:node];
 		}
-		
+
 		if(URI)
 		{
 			// Create a new xmlNsPtr, add it to the nsDef list, and make ns point to it
@@ -674,7 +674,7 @@
 
 /**
  * Returns the URI associated with the receiver.
- * 
+ *
  * A node’s URI is derived from its namespace or a document’s URI; for documents, the URI comes either from the
  * parsed XML or is explicitly set. You cannot change the URI for a particular node other for than a namespace
  * or document node.
@@ -697,13 +697,13 @@
 			return [NSString stringWithUTF8String:((const char *)node->ns->href)];
 		}
 	}
-	
+
 	return nil;
 }
 
 /**
  * Returns the local name from the specified qualified name.
- * 
+ *
  * Examples:
  * "a:node" -> "node"
  * "a:a:node" -> "a:node"
@@ -715,7 +715,7 @@
 	if(name)
 	{
 		NSRange range = [name rangeOfString:@":"];
-		
+
 		if(range.length != 0)
 			return [name substringFromIndex:(range.location + range.length)];
 		else
@@ -727,7 +727,7 @@
 /**
  * Extracts the prefix from the given name.
  * If name is nil, or has no prefix, an empty string is returned.
- * 
+ *
  * Examples:
  * "a:deusty.com" -> "a"
  * "a:a:deusty.com" -> "a"
@@ -739,7 +739,7 @@
 	if(name)
 	{
 		NSRange range = [name rangeOfString:@":"];
-		
+
 		if(range.length != 0)
 		{
 			return [name substringToIndex:range.location];
@@ -770,40 +770,40 @@
 	// as <empty/> but <empty></empty>. those two forms are undistinguishable
 	// once parsed.
 	// Disabled by default
-	
+
 	if(options & DDXMLNodeCompactEmptyElement)
 		xmlSaveNoEmptyTags = 0;
 	else
 		xmlSaveNoEmptyTags = 1;
-	
+
 	int format = 0;
 	if(options & DDXMLNodePrettyPrint)
 	{
 		format = 1;
 		xmlIndentTreeOutput = 1;
 	}
-	
+
 	xmlBufferPtr bufferPtr = xmlBufferCreate();
 	if([self isXmlNsPtr])
 		xmlNodeDump(bufferPtr, NULL, (xmlNodePtr)genericPtr, 0, format);
 	else
 		xmlNodeDump(bufferPtr, ((xmlStdPtr)genericPtr)->doc, (xmlNodePtr)genericPtr, 0, format);
-	
+
 	if([self kind] == DDXMLTextKind)
 	{
 		NSString *result = [NSString stringWithUTF8String:(const char *)bufferPtr->content];
-		
+
 		xmlBufferFree(bufferPtr);
-		
+
 		return result;
 	}
 	else
 	{
 		NSMutableString *result = [NSMutableString stringWithUTF8String:(const char *)bufferPtr->content];
 		CFStringTrimWhitespace((CFMutableStringRef)result);
-		
+
 		xmlBufferFree(bufferPtr);
-		
+
 		return result;
 	}
 }
@@ -837,8 +837,8 @@
 	switch(type)
 	{
 		case XML_ELEMENT_NODE :
-		case XML_PI_NODE      : 
-		case XML_COMMENT_NODE : 
+		case XML_PI_NODE      :
+		case XML_COMMENT_NODE :
 		case XML_TEXT_NODE    : return YES;
 		default               : return NO;
 	}
@@ -903,23 +903,23 @@
 
 /**
  * - - - - - - - - - - R E A D   M E - - - - - - - - - -
- * 
+ *
  * The memory management of these wrapper classes is straight-forward, but requires explanation.
  * To understand the problem, consider the following situation:
- * 
+ *
  * <root>
  *   <level1>
  *     <level2/>
  *   </level1>
  * </root>
- * 
+ *
  * Imagine the user has retained two DDXMLElements - one for root, and one for level2.
  * Then they release the root element, but they want to hold onto the level2 element.
  * We need to release root, and level1, but keep level2 intact until the user is done with it.
  * Note that this is also how the NSXML classes work.
  * The user will no longer be able to traverse up the tree from level2, but will be able to access all the normal
  * information in level2, as well as any children, if there was any.
- * 
+ *
  * So the first question is, how do we know if a libxml node is being referenced by a cocoa wrapper?
  * In order to accomplish this, we take advantage of the node's _private variable.
  * If the private variable is NULL, then the node isn't being directly referenced by any cocoa wrapper objects.
@@ -928,21 +928,21 @@
  * and a pointer to the next xmlRetain structure. So it's a linked list of the cocoa wrapper objects.
  * When a cocoa wrapper object is created, it adds itself to the retain list (via nodeRetain), and when it's
  * dealloced it removes itself from the retain list (via nodeRelease).
- * 
+ *
  * With this structure in place, then given any libxml node, we can easily determine if it's still needed,
  * or if we can free it:
  * Are there any cocoa wrapper objects still directly referring to the node?
  * If so, we can't free the node.
  * Otherwise, does the node still have a parent?
  * If so, then the node is still part of a heirarchy, and we can't free the node.
- * 
+ *
  * To fully understand the parent restriction, consider the following scenario:
  * Imagine the user extracts the level1 DDXMLElement from the root.
  * The user reads the data, and the level1 DDXMLElement is autoreleased. The root is still retained.
  * When the level1 DDXMLElement is dealloced, nodeRelease will be called, and the retain list will become empty.
  * Can we free the level1 node at this point?
  * Of course not, because it's still within the root heirarchy, and the user is still using the root element.
- * 
+ *
  * The following should be spelled out:
  * If you call xmlFreeNode, this method will free all linked attributes and children.
  * So you can't blindly call this method, because you can't free nodes that are still being referenced.
@@ -957,7 +957,7 @@
 		child->doc = NULL;
 		child = child->next;
 	}
-	
+
 	attr->doc = NULL;
 }
 
@@ -969,14 +969,14 @@
 		[self stripDocPointersFromAttr:attr];
 		attr = attr->next;
 	}
-	
+
 	xmlNodePtr child = node->children;
 	while(child != NULL)
 	{
 		[self recursiveStripDocPointersFromNode:child];
 		child = child->next;
 	}
-	
+
 	node->doc = NULL;
 }
 
@@ -987,13 +987,13 @@
 + (void)nodeFree:(xmlNodePtr)node
 {
 	NSAssert([self isXmlNodePtr:(xmlKindPtr)node], @"Wrong kind of node passed to nodeFree");
-	
+
 	if(node->_private == NULL)
 	{
 		[self removeAllAttributesFromNode:node];
 		[self removeAllNamespacesFromNode:node];
 		[self removeAllChildrenFromNode:node];
-		
+
 		xmlFreeNode(node);
 	}
 	else
@@ -1037,7 +1037,7 @@
 			attr->next->prev = attr->prev;
 		}
 	}
-	
+
 	// Nullify pointers
 	attr->parent = NULL;
 	attr->prev   = NULL;
@@ -1054,7 +1054,7 @@
 + (void)removeAttribute:(xmlAttrPtr)attr fromNode:(xmlNodePtr)node
 {
 	[self detachAttribute:attr fromNode:node];
-	
+
 	// Free the attr if it's no longer in use
 	if(attr->_private == NULL)
 	{
@@ -1070,11 +1070,11 @@
 + (void)removeAllAttributesFromNode:(xmlNodePtr)node
 {
 	xmlAttrPtr attr = node->properties;
-	
+
 	while(attr != NULL)
 	{
 		xmlAttrPtr nextAttr = attr->next;
-		
+
 		// Free the attr if it's no longer in use
 		if(attr->_private == NULL)
 		{
@@ -1087,10 +1087,10 @@
 			attr->next   = NULL;
 			if(attr->doc != NULL) [self stripDocPointersFromAttr:attr];
 		}
-		
+
 		attr = nextAttr;
 	}
-	
+
 	node->properties = NULL;
 }
 
@@ -1112,29 +1112,29 @@
 				node->nsDef = currentNs->next;
 			else
 				previousNs->next = currentNs->next;
-			
+
 			break;
 		}
-		
+
 		previousNs = currentNs;
 		currentNs = currentNs->next;
 	}
-	
+
 	// Nullify pointers
 	ns->next = NULL;
-	
+
 	if(node->ns == ns)
 	{
 		node->ns = NULL;
 	}
-	
+
 	// We also have to nullify the nsParentPtr's, which are in the cocoa wrapper objects
 	xmlRetainPtr retainPtr = (xmlRetainPtr)ns->_private;
 	while(retainPtr != NULL)
 	{
 		DDXMLNode *node = (DDXMLNode *)retainPtr->retainee;
 		node->nsParentPtr = NULL;
-		
+
 		retainPtr = retainPtr->next;
 	}
 }
@@ -1148,7 +1148,7 @@
 + (void)removeNamespace:(xmlNsPtr)ns fromNode:(xmlNodePtr)node
 {
 	[self detachNamespace:ns fromNode:node];
-	
+
 	// Free the ns if it's no longer in use
 	if(ns->_private == NULL)
 	{
@@ -1164,21 +1164,21 @@
 + (void)removeAllNamespacesFromNode:(xmlNodePtr)node
 {
 	xmlNsPtr ns = node->nsDef;
-	
+
 	while(ns != NULL)
 	{
 		xmlNsPtr nextNs = ns->next;
-		
+
 		// We manage the nsParent pointers, which are in the cocoa wrapper objects, so we have to nullify them ourself
 		xmlRetainPtr retainPtr = (xmlRetainPtr)ns->_private;
 		while(retainPtr != NULL)
 		{
 			DDXMLNode *node = (DDXMLNode *)retainPtr->next;
 			node->nsParentPtr = NULL;
-			
+
 			retainPtr = retainPtr->next;
 		}
-		
+
 		// Free the ns if it's no longer in use
 		if(ns->_private == NULL)
 		{
@@ -1188,10 +1188,10 @@
 		{
 			ns->next = NULL;
 		}
-		
+
 		ns = nextNs;
 	}
-	
+
 	node->nsDef = NULL;
 	node->ns = NULL;
 }
@@ -1230,7 +1230,7 @@
 			child->next->prev = child->prev;
 		}
 	}
-	
+
 	if(flag)
 	{
 		// Nullify pointers
@@ -1256,7 +1256,7 @@
  * The child's surrounding prev/next pointers are properly updated to remove the child from the node's children list.
  * Then the child is recursively freed if it's no longer being referenced.
  * Otherwise, it's parent, prev, next and doc pointers are destroyed.
- * 
+ *
  * During the recursive free, subnodes still being referenced are properly handled.
 **/
 + (void)removeChild:(xmlNodePtr)child fromNode:(xmlNodePtr)node
@@ -1267,7 +1267,7 @@
 	// Then, when we call nodeFree:, it will again traverse the entire tree, freeing all the nodes.
 	// To avoid this double traversal, we skip the nullification step in the detach method, and let nodeFree do it.
 	[self detachChild:child fromNode:node andNullifyPointers:NO];
-	
+
 	// Free the child recursively if it's no longer in use
 	[self nodeFree:child];
 }
@@ -1276,23 +1276,23 @@
  * Removes all children from the given node.
  * All children are either recursively freed, or their parent, prev, next and doc pointers are properly destroyed.
  * Upon return, the given node's children pointer is NULL.
- * 
+ *
  * During the recursive free, subnodes still being referenced are properly handled.
 **/
 + (void)removeAllChildrenFromNode:(xmlNodePtr)node
 {
 	xmlNodePtr child = node->children;
-	
+
 	while(child != NULL)
 	{
 		xmlNodePtr nextChild = child->next;
-		
+
 		// Free the child recursively if it's no longer in use
 		[self nodeFree:child];
-		
+
 		child = nextChild;
 	}
-	
+
 	node->children = NULL;
 	node->last = NULL;
 }
@@ -1313,17 +1313,17 @@
 - (void)nodeRetain
 {
 	// Warning: The _private variable is in a different location in the xmlNsPtr
-	
+
 	xmlRetainPtr first;
 	if([self isXmlNsPtr])
 		first = (xmlRetainPtr)((xmlNsPtr)genericPtr)->_private;
 	else
 		first = (xmlRetainPtr)((xmlStdPtr)genericPtr)->_private;
-	
+
 	xmlRetainPtr myPtr = malloc(sizeof(struct _xmlRetain));
 	myPtr->retainee = self;
 	myPtr->next = first;
-	
+
 	if([self isXmlNsPtr])
 		((xmlNsPtr)genericPtr)->_private = myPtr;
 	else
@@ -1339,24 +1339,24 @@
 - (void)nodeRelease
 {
 	// Warning: The _private variable is in a different location in the xmlNsPtr
-	
+
 	void **privatePtrPtr;
 	if([self isXmlNsPtr])
 		privatePtrPtr = &(((xmlNsPtr)genericPtr)->_private);
 	else
 		privatePtrPtr = &(((xmlStdPtr)genericPtr)->_private);
-	
+
 	xmlRetainPtr previousRetainPtr = NULL;
 	xmlRetainPtr currentRetainPtr = (xmlRetainPtr)(*privatePtrPtr);
-	
+
 	// WTF is going on here?
-	// 
+	//
 	// We've created a pointer to a pointer.
 	// The variable privatePtrPtr points to the "void * _private" variable.
 	// This way, to update the private variable, we can simply dereference the privatePtrPtr.
-	// 
+	//
 	// void **privatePtrPtr -> void * _private -> struct _xmlRetain
-	
+
 	while(currentRetainPtr != NULL)
 	{
 		if(currentRetainPtr->retainee == self)
@@ -1369,22 +1369,22 @@
 			{
 				previousRetainPtr->next = currentRetainPtr->next;
 			}
-			
+
 			free(currentRetainPtr);
 			break;
 		}
-		
+
 		previousRetainPtr = currentRetainPtr;
 		currentRetainPtr = currentRetainPtr->next;
 	}
-	
+
 	// Now check to see if the node can be released
 	// Did you read the giant readme comment section above?
-	
+
 	if([self isXmlNsPtr])
 	{
 		xmlNsPtr ns = (xmlNsPtr)genericPtr;
-		
+
 		if(ns->_private == NULL)
 		{
 			if(nsParentPtr == NULL)
@@ -1404,7 +1404,7 @@
 	else
 	{
 		xmlStdPtr node = (xmlStdPtr)genericPtr;
-		
+
 		if(node->_private == NULL)
 		{
 			if(node->parent == NULL)

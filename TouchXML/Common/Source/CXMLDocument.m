@@ -58,7 +58,7 @@ if ((self = [super init]) != NULL)
 	{
 	if (outError)
 		*outError = NULL;
-	
+
 	xmlDocPtr theDoc;
 	if ( inOptions & CXMLDocumentTidyHTML )
 		{
@@ -68,8 +68,8 @@ if ((self = [super init]) != NULL)
 
 		if (! ctx ) {
 			return 0;
-		}	
-		
+		}
+
 		ctx->vctxt.error = htmlparser_error;
 		ctx->vctxt.warning = htmlparser_warning;
 		if (ctx->sax != NULL)
@@ -115,10 +115,10 @@ if (theData)
 	}
 else
 	{
-	
+
 	self = NULL;
 	}
-	
+
 return(self);
 }
 
@@ -132,7 +132,7 @@ if ((self = [super init]) != NULL)
 		{
 		theDoc = xmlRecoverMemory([inData bytes], [inData length]);
 		}
-	
+
 	if (theDoc != NULL)
 		{
 		_node = (xmlNodePtr)theDoc;
@@ -172,7 +172,7 @@ nodePool = NULL;
 - (CXMLElement *)rootElement
 {
 xmlNodePtr theLibXMLNode = xmlDocGetRootElement((xmlDocPtr)_node);
-	
+
 return([CXMLNode nodeWithLibXMLNode:theLibXMLNode]);
 }
 
@@ -201,7 +201,7 @@ return xmlString;
 	xmlDocDumpFormatMemory((xmlDocPtr)(self->_node), &xmlbuff, &buffersize, 1);
 	NSString *dump = [[[NSString alloc] initWithBytes:xmlbuff length:buffersize encoding:NSUTF8StringEncoding] autorelease];
 	xmlFree(xmlbuff);
-							   
+
 	[result appendString:dump];
 	return result;
 }

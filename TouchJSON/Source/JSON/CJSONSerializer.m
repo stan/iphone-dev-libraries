@@ -173,7 +173,7 @@ NSString *theKey = NULL;
 while ((theKey = [theEnumerator nextObject]) != NULL)
 	{
 	id theValue = [inDictionary objectForKey:theKey];
-	
+
 	[theString appendFormat:@"%@:%@", [self serializeString:theKey], [self serializeObject:theValue]];
 	if (theKey != [theKeys lastObject])
 		[theString appendString:@","];

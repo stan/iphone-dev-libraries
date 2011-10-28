@@ -93,7 +93,7 @@ if (theData && theData.length >= 4)
 		else if (theChars[1] != 0)
 			theEncoding = NSUTF16BigEndianStringEncoding;
 		}
-		
+
 	if (theEncoding != NSUTF8StringEncoding)
 		{
 		NSString *theString = [[NSString alloc] initWithData:theData encoding:theEncoding];
@@ -157,7 +157,7 @@ switch (C)
 		[self scanJSONArray:&theObject error:outError];
 		break;
 	default:
-		
+
 		break;
 	}
 
@@ -187,7 +187,7 @@ NSMutableDictionary *theDictionary = [[NSMutableDictionary alloc] init];
 while ([self currentCharacter] != '}')
 	{
 	[self skipWhitespace];
-	
+
 	if ([self currentCharacter] == '}')
 		break;
 
@@ -324,7 +324,7 @@ while ([self currentCharacter] != ']')
 		}
 
 	[theArray addObject:theValue];
-	
+
 	[self skipWhitespace];
 	if ([self scanCharacter:','] == NO)
 		{
@@ -342,7 +342,7 @@ while ([self currentCharacter] != ']')
 			[theArray release];
 			return(NO);
 			}
-		
+
 		break;
 		}
 	[self skipWhitespace];
@@ -401,7 +401,7 @@ while ([self scanCharacter:'"'] == NO)
 		{
 		[theString appendString:theStringChunk];
 		}
-	
+
 	if ([self scanCharacter:'\\'] == YES)
 		{
 		unichar theCharacter = [self scanCharacter];
@@ -469,7 +469,7 @@ while ([self scanCharacter:'"'] == NO)
 		CFStringAppendCharacters((CFMutableStringRef)theString, &theCharacter, 1);
 		}
 	}
-	
+
 if (outStringConstant != NULL)
 	*outStringConstant = [[theString copy] autorelease];
 
@@ -527,7 +527,7 @@ if (outValue)
 	{
 	*outValue = [[[NSString alloc] initWithBytes:current length:P - current encoding:NSUTF8StringEncoding] autorelease];
 	}
-	
+
 current = P;
 
 return(YES);

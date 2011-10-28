@@ -54,7 +54,7 @@
        30:   49:	STAssertEquals([theNode index], [theArray indexOfObject:theNode], NULL);
        30:   50:	STAssertEquals((int)[theNode level], 2, NULL);
         -:   51:	}
-        -:   52:	
+        -:   52:
        10:   53:STAssertEquals([[theXMLDocument rootElement] childAtIndex:0], [theArray objectAtIndex:0], NULL);
        10:   54:STAssertEquals([[theXMLDocument rootElement] childAtIndex:1], [theArray objectAtIndex:1], NULL);
        10:   55:STAssertEquals([[theXMLDocument rootElement] childAtIndex:2], [theArray objectAtIndex:2], NULL);
