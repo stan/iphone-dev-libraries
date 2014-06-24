@@ -8,9 +8,9 @@
 content="HTML, validation, error correction, pretty-printing" />
 <meta name="author" content="Dave Raggett &lt;dsr@w3.org&gt;" />
 <style type="text/css">
-  body { 
-    margin-left: 10%; 
-    margin-right: 10%; 
+  body {
+    margin-left: 10%;
+    margin-right: 10%;
     font-family: sans-serif
   }
   h1 { margin-left: -8% }
@@ -164,7 +164,7 @@ HTML for you:</p>
 
 <ul>
 <li><b>Missing or mismatched end tags are detected and
-corrected</b> 
+corrected</b>
 
 <pre>
    &lt;h1&gt;heading
@@ -179,7 +179,7 @@ corrected</b>
 </pre>
 </li>
 
-<li><b>End tags in the wrong order are corrected:</b> 
+<li><b>End tags in the wrong order are corrected:</b>
 
 <pre>
    &lt;p&gt;here is a para &lt;b&gt;bold &lt;i&gt;bold italic&lt;/b&gt; bold?&lt;/i&gt; normal?
@@ -192,7 +192,7 @@ corrected</b>
 </pre>
 </li>
 
-<li><b>Fixes problems with heading emphasis</b> 
+<li><b>Fixes problems with heading emphasis</b>
 
 <pre>
    &lt;h1&gt;&lt;i&gt;italic heading&lt;/h1&gt;
@@ -211,7 +211,7 @@ desired effect at all!</p>
 </pre>
 </li>
 
-<li><b>Recovers from mixed up tags</b> 
+<li><b>Recovers from mixed up tags</b>
 
 <pre>
    &lt;i&gt;&lt;h1&gt;heading&lt;/h1&gt;&lt;/i&gt;
@@ -228,7 +228,7 @@ desired effect at all!</p>
 </pre>
 </li>
 
-<li><b>Getting the &lt;hr&gt; in the right place:</b> 
+<li><b>Getting the &lt;hr&gt; in the right place:</b>
 
 <pre>
    &lt;h1&gt;&lt;hr&gt;heading&lt;/h1&gt;
@@ -246,7 +246,7 @@ desired effect at all!</p>
 </pre>
 </li>
 
-<li><b>Adding the missing "/" in end tags for anchors:</b> 
+<li><b>Adding the missing "/" in end tags for anchors:</b>
 
 <pre>
    &lt;a href="#refs"&gt;References&lt;a&gt;
@@ -259,7 +259,7 @@ desired effect at all!</p>
 </pre>
 </li>
 
-<li><b>Perfecting lists by putting in tags missed out:</b> 
+<li><b>Perfecting lists by putting in tags missed out:</b>
 
 <pre>
    &lt;body&gt;
@@ -278,7 +278,7 @@ desired effect at all!</p>
 </pre>
 </li>
 
-<li><b>Missing quotes around attribute values are added</b> 
+<li><b>Missing quotes around attribute values are added</b>
 
 <p>Tidy inserts quote marks around all attribute values for you.
 It can also detect when you have forgotten the closing quote
@@ -286,7 +286,7 @@ mark, although this is something you will have to fix
 yourself.</p>
 </li>
 
-<li><b>Unknown/Proprietary attributes are reported</b> 
+<li><b>Unknown/Proprietary attributes are reported</b>
 
 <p>Tidy has a comprehensive knowledge of the attributes defined
 in the HTML 4.0 recommendation from W3C. This often allows you to
@@ -294,14 +294,14 @@ spot where you have mistyped an attribute or value.</p>
 </li>
 
 <li><b>Proprietary elements are recognized and reported as
-such.</b> 
+such.</b>
 
 <p>Tidy will even work out which version of HTML you are using
 and insert the appropriate DOCTYPE element, as per the W3C
 recommendations.</p>
 </li>
 
-<li><b>Tags lacking a terminating '&gt;' are spotted</b> 
+<li><b>Tags lacking a terminating '&gt;' are spotted</b>
 
 <p>This is something you then have to fix yourself as Tidy is
 unsure of where the &gt; should be inserted.</p>
@@ -568,23 +568,23 @@ you may prefer Tidy's default style:</p>
  &lt;body&gt;
  &lt;p&gt;para which has enough text to cause a line break,
  and so test the wrapping mechanism for long lines.&lt;/p&gt;
- 
+
  &lt;pre&gt;This is
  &lt;em&gt;genuine
        preformatted&lt;/em&gt;
     text
  &lt;/pre&gt;
- 
+
  &lt;ul&gt;
  &lt;li&gt;1st list item &lt;/li&gt;
- 
+
  &lt;li&gt;2nd list item&lt;/li&gt;
  &lt;/ul&gt;
- 
+
  &lt;!-- end comment --&gt;
  &lt;/body&gt;
  &lt;/html&gt;
- 
+
 </pre>
 
 <h3><a id="help" name="help">How to run tidy</a></h3>
@@ -723,7 +723,7 @@ can be set independently of wrap-scriptlets</dd>
 within string literals that appear in script attributes. The
 default is <em>no</em>. The example shows how Tidy wraps a really
 really long script string literal inserting a backslash character
-before the linebreak: 
+before the linebreak:
 
 <pre>
 &lt;a href="somewhere.html" onmouseover="document.status = '...some \
@@ -1109,7 +1109,7 @@ break-before-br: no
 uppercase-tags: no
 uppercase-attributes: no
 char-encoding: latin1
-new-inline-tags: cfif, cfelse, math, mroot, 
+new-inline-tags: cfif, cfelse, math, mroot,
   mrow, mi, mn, mo, msqrt, mfrac, msubsup, munderover,
   munder, mover, mmultiscripts, msup, msub, mtext,
   mprescripts, mtable, mtr, mtd, mth
@@ -1195,7 +1195,7 @@ Screenshot</a>). My thanks to <a
 href="mailto:teague@mailandnews.com">Terry Teague</a> for this
 port.<br />
 <br />
- 
+
 
 <h4>Atari</h4>
 
@@ -1230,14 +1230,14 @@ for Redhat Linux</a> You may also be able to find Tidy on other
 Linux distribution sites, e.g. <a
 href="http://rpmfind.net/">http://rpmfind.net/</a>.</p>
 
-<!-- no longer accessible :-( 
-      <p><b><a href= 
+<!-- no longer accessible :-(
+      <p><b><a href=
       "http://www.astro.uni-bonn.de/~webstw/cm/w3c_tidy/index.html">
       Linux users</a></b>! ochen M. Braun is maintaining Tidy binary
       for Linux (ELF 32-bit LSB executable using '<tt>libc.so.5</tt>'
-      for Intel&#160;80386): '<a href= 
+      for Intel&#160;80386): '<a href=
       "ftp://ftp.astro.uni-bonn.de/pub/webstw/linsoft/tidy"><tt>tidy</tt></a>
-      '. Additionally a man page can be downloaded: <a href= 
+      '. Additionally a man page can be downloaded: <a href=
       "ftp://ftp.astro.uni-bonn.de/pub/webstw/linsoft/tidy.1"><tt>
       tidy.1</tt></a>.</p>
        -->

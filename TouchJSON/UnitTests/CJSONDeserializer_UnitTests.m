@@ -65,7 +65,7 @@
 								@"a_method", @"method",
 								[NSArray arrayWithObject:@"a_param"], @"params",
 								nil];
-	STAssertEqualObjects(dictionary, theObject, nil);	
+	STAssertEqualObjects(dictionary, theObject, nil);
 }
 
 -(void)testCheckForError {

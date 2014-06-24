@@ -8,7 +8,7 @@ logical-emphasis: yes
 indent-attributes: yes
 
 # + declared tags
-new-blocklevel-tags: foo 
-new-inline-tags: bar 
-new-empty-tags: zippo 
-new-pre-tags: baz 
+new-blocklevel-tags: foo
+new-inline-tags: bar
+new-empty-tags: zippo
+new-pre-tags: baz

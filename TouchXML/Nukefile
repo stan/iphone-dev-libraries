@@ -1,6 +1,6 @@
 ;;
 ;; Nukefile for TouchXML
-;; 
+;;
 ;; Commands:
 ;;	nuke 		- builds TouchXML as a framework
 ;;	nuke test	- runs the unit tests in the NuTests directory

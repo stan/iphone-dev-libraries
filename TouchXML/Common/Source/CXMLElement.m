@@ -122,7 +122,7 @@ if ( ! _node->children )
 	}
 
 [str appendString:@">"];
-	
+
 if ( _node->children )
 	{
 	for (id child in [self children])
@@ -135,7 +135,7 @@ return str;
 - (NSString *)description
 {
 	NSAssert(_node != NULL, @"TODO");
-	
+
 	return([NSString stringWithFormat:@"<%@ %p [%p] %@ %@>", NSStringFromClass([self class]), self, self->_node, [self name], [self XMLStringWithOptions:0]]);
 }
 

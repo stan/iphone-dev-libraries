@@ -1,6 +1,6 @@
-input-xml: yes 
+input-xml: yes
 new-pre-tags: programlisting
-new-inline-tags: literal 
+new-inline-tags: literal
 indent: no
-indent-spaces: 0 
+indent-spaces: 0
 wrap: 999999

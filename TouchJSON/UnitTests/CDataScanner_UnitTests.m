@@ -41,7 +41,7 @@ CDataScanner *theScanner = [CDataScanner scannerWithData:[@"Hello World" dataUsi
 STAssertFalse(theScanner.isAtEnd, NULL);
 
 NSString *theString = NULL;
-BOOL theResult = 
+BOOL theResult =
 
 theResult = [theScanner scanString:@"Hello" intoString:&theString];
 STAssertTrue(theResult, NULL);

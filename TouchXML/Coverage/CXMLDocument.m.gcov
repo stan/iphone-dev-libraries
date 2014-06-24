@@ -25,7 +25,7 @@
        50:   20:if ((self = [super init]) != NULL)
         -:   21:	{
        50:   22:	xmlDocPtr theDoc = xmlParseDoc((xmlChar *)[inString UTF8String]);
-        -:   23:	
+        -:   23:
        50:   24:	if (theDoc != NULL)
         -:   25:		{
        40:   26:		_node = (xmlNodePtr)theDoc;
@@ -51,10 +51,10 @@
         -:   46:	}
         -:   47:else
         -:   48:	{
-        -:   49:	
+        -:   49:
     #####:   50:	self = NULL;
         -:   51:	}
-        -:   52:	
+        -:   52:
     #####:   53:return(self);
         -:   54:}
         -:   55:
@@ -67,7 +67,7 @@
         -:   62:		{
     #####:   63:		theDoc = xmlParseMemory([inData bytes], [inData length]);
         -:   64:		}
-        -:   65:	
+        -:   65:
     #####:   66:	if (theDoc != NULL)
         -:   67:		{
     #####:   68:		_node = (xmlNodePtr)theDoc;
@@ -105,7 +105,7 @@
         -:  100:- (CXMLElement *)rootElement
       110:  101:{
       110:  102:xmlNodePtr theLibXMLNode = xmlDocGetRootElement((xmlDocPtr)_node);
-        -:  103:	
+        -:  103:
       110:  104:return([CXMLNode nodeWithLibXMLNode:theLibXMLNode]);
         -:  105:}
         -:  106:

@@ -128,7 +128,7 @@
     #####:  123:	[theChildren addObject:theNode];
     #####:  124:	theCurrentNode = theCurrentNode->next;
         -:  125:	}
-    #####:  126:return(theChildren);      
+    #####:  126:return(theChildren);
         -:  127:}
         -:  128:
         -:  129:- (CXMLNode *)childAtIndex:(NSUInteger)index
@@ -207,7 +207,7 @@
        50:  202:		xmlNodePtr theNode = theXPathObject->nodesetval->nodeTab[N];
        50:  203:		[theArray addObject:[CXMLNode nodeWithLibXMLNode:theNode]];
         -:  204:		}
-        -:  205:		
+        -:  205:
        20:  206:	theResult = theArray;
         -:  207:	}
         -:  208:

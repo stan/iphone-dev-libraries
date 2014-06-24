@@ -18,7 +18,7 @@ void MyErrorHandler(void * userData, xmlErrorPtr error)
 		// Redirect error output to our own function (don't clog up the console)
 		initGenericErrorDefaultFunc(NULL);
 		xmlSetStructuredErrorFunc(NULL, MyErrorHandler);
-		
+
 		initialized = YES;
 	}
 }
@@ -35,14 +35,14 @@ void MyErrorHandler(void * userData, xmlErrorPtr error)
 		[super dealloc];
 		return nil;
 	}
-	
+
 	self = [super initWithPrimitive:nodePtr];
 	return self;
 }
 
 /**
  * Initializes and returns a DDXMLDocument object created from an NSData object.
- * 
+ *
  * Returns an initialized DDXMLDocument object, or nil if initialization fails
  * because of parsing errors or other reasons.
 **/
@@ -51,20 +51,20 @@ void MyErrorHandler(void * userData, xmlErrorPtr error)
 	if(data == nil || [data length] == 0)
 	{
 		if(error) *error = [NSError errorWithDomain:@"DDXMLErrorDomain" code:0 userInfo:nil];
-		
+
 		[super dealloc];
 		return nil;
 	}
-	
+
 	xmlDocPtr doc = xmlParseMemory([data bytes], [data length]);
 	if(doc == NULL)
 	{
 		if(error) *error = [NSError errorWithDomain:@"DDXMLErrorDomain" code:1 userInfo:nil];
-		
+
 		[super dealloc];
 		return nil;
 	}
-	
+
 	return [self initWithPrimitive:(xmlKindPtr)doc];
 }
 
@@ -74,7 +74,7 @@ void MyErrorHandler(void * userData, xmlErrorPtr error)
 - (DDXMLElement *)rootElement
 {
 	xmlDocPtr docPtr = (xmlDocPtr)genericPtr;
-	
+
 	if(docPtr->children == NULL)
 		return nil;
 	else

@@ -70,10 +70,10 @@ the tidied file back to the same filename as it read from
 (mywebpage.html). Tidy will give you a breakdown of the problems it
 found and the version of HTML the file appears to be using.</p>
 
-<p>To get a listing of Tidy command line options, just type 
+<p>To get a listing of Tidy command line options, just type
 <code>tidy -?</code>.  To see a listing on configuration options,
 try <code>tidy -help-config</code>.  To get more info on the
-config options, see the <a 
+config options, see the <a
 href="http://tidy.sourceforge.net/docs/quickref.html">Quick Reference</a>.</p>
 
 <p>See also Dave Raggett's <a href="http://tidy.sourceforge.net/docs/Overview.html#help">User Guide</a>.</p>
@@ -169,7 +169,7 @@ possible about what you want Tidy to <em>do</em>.</p>
 <dt><a name="layout" id="layout"></a>How Do I Control the Output Layout?</dt>
 
 <dd>
-<p>There are three primary options that control how Tidy 
+<p>There are three primary options that control how Tidy
 formats your markup:</p>
 <ul>
   <li><a class="code"
@@ -180,16 +180,16 @@ formats your markup:</p>
          href="quickref.html#vertical-space">vertical-space</a></li>
 </ul>
 
-<p>Briefly, <code>indent</code> sets the level of left-to-right indenting 
-and, somewhat, how often elements are put onto a new line.  The options 
-are <code>yes</code>, <code>no</code>, and <code>auto</code>.  
-<code>indent-attributes</code> is a flag that, when set, tells Tidy to 
+<p>Briefly, <code>indent</code> sets the level of left-to-right indenting
+and, somewhat, how often elements are put onto a new line.  The options
+are <code>yes</code>, <code>no</code>, and <code>auto</code>.
+<code>indent-attributes</code> is a flag that, when set, tells Tidy to
 put each attribute on a new line.  <code>vertical-space</code> is a flag
-that, when set, tells Tidy to add some empty lines for readability.  The 
+that, when set, tells Tidy to add some empty lines for readability.  The
 default for all three is <code>no</code>.  These options may be used in
 any combination to control you you want your markup to look.  The best
-thing is to experiment a bit to see what you like.  Be aware that 
-<code>indent yes</code> is deprecated for production use as it will 
+thing is to experiment a bit to see what you like.  Be aware that
+<code>indent yes</code> is deprecated for production use as it will
 cause visual changes in most browsers.</p>
 
 <p>To get Tidy <em>Classic</em> <code>--indent auto</code> layout, use the following options:</p>
@@ -208,11 +208,11 @@ vertical-space: yes
 I Use?</dt>
 
 <dd>
-<p>The current Source Forge builds are recommended.  You can find these at 
+<p>The current Source Forge builds are recommended.  You can find these at
 <a href="http://tidy.sourceforge.net">http://tidy.sourceforge.net</a>.
-People continue to report examples where Tidy does not catch some 
-ill-formed HTML or, worse, generates ill-formed HTML. These cases have 
-been significantly reduced. That said, be sure to test Tidy with some 
+People continue to report examples where Tidy does not catch some
+ill-formed HTML or, worse, generates ill-formed HTML. These cases have
+been significantly reduced. That said, be sure to test Tidy with some
 representative files from your environment.</p>
 
 <p>For development work, use CVS directly on your development
@@ -223,11 +223,11 @@ conflicts.</p>
 
 <p>For building a front end (e.g. GUI or language binding), the
 simplest approach is to use TidyLib.  For more information
-about building and coding with TidyLib, see the <a 
+about building and coding with TidyLib, see the <a
 href="http://tidy.sourceforge.net/libintro.html">Introduction To TidyLib</a>.</p>
 </dd>
 
-<dt><a name="regression" id="regression">How Do I Run A 
+<dt><a name="regression" id="regression">How Do I Run A
 Regression Test?</a></dt>
 <dd>
 <p>You might ask, "Why should I run a regression test?".  If you
@@ -248,10 +248,10 @@ and <strong>after</strong> making changes to TidyLib and compare the output
 markup and messages.  Be aware that the test scripts for WinNT/2K/XP
 (alltest.cmd) and Linux/Unix (testall.sh) place the output files in
 <code>tidy/test/tmp</code>.  If you forget to run the <strong>before</strong>
-test, you can always download a binary from the <a 
+test, you can always download a binary from the <a
 href="http://tidy.sourceforge.net/#binaries">Project Page</a>.  If you
-are not a TidyLib developer, you can download the <a 
-href="http://tidy.sourceforge.net/test/tidy_test.tgz">Test Suite</a> 
+are not a TidyLib developer, you can download the <a
+href="http://tidy.sourceforge.net/test/tidy_test.tgz">Test Suite</a>
 directly.  Here are the steps to evaluate the impact of a TidyLib change.</p>
 
 <h3>For Windows</h3>

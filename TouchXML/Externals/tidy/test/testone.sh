@@ -70,7 +70,7 @@ STATUS=$?
 
 if [ $STATUS -ne $EXPECTED ]
 then
-  echo "== $TESTNO failed (Status received: $STATUS vs expected: $EXPECTED)" 
+  echo "== $TESTNO failed (Status received: $STATUS vs expected: $EXPECTED)"
   cat $MSGFILE
   exit 1
 fi

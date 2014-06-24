@@ -35,7 +35,7 @@ if NOT exist %CFGFILE% set CFGFILE=input\cfg_default.txt
 
 REM Get specific input file name
 @set INFILE=
-for %%F in ( %INFILES% ) do set INFILE=%%F 
+for %%F in ( %INFILES% ) do set INFILE=%%F
 @if "%INFILE%." == "." goto Err6
 @if NOT EXIST %INFILE% goto Err7
 

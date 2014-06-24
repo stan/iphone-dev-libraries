@@ -2,12 +2,12 @@
 #
 #  CVS Info :
 #
-#     $Author: arnaud02 $ 
-#     $Date: 2008/03/17 12:49:40 $ 
-#     $Revision: 1.3 $ 
+#     $Author: arnaud02 $
+#     $Date: 2008/03/17 12:49:40 $
+#     $Revision: 1.3 $
 #
 #  Copyright (c) 1998-2008 World Wide Web Consortium
-#  (Massachusetts Institute of Technology, European Research 
+#  (Massachusetts Institute of Technology, European Research
 #  Consortium for Informatics and Mathematics, Keio University).
 #  All Rights Reserved.
 #
@@ -29,7 +29,7 @@
 #  but not limited to, warranties of merchantability or fitness
 #  for any particular purpose or that the use of the software or
 #  documentation will not infringe any third party patents,
-#  copyrights, trademarks or other rights. 
+#  copyrights, trademarks or other rights.
 #
 #  The copyright holders and contributing author(s) will not be
 #  liable for any direct, indirect, special or consequential damages
@@ -45,7 +45,7 @@
 #     not be misrepresented as being the original source.
 #  3. This Copyright notice may not be removed or altered from any
 #     source or altered source distribution.
-# 
+#
 #  The copyright holders and contributing author(s) specifically
 #  permit, without fee, and encourage the use of this source code
 #  as a component for supporting the Hypertext Markup Language in

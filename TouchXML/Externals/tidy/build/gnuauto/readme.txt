@@ -1,6 +1,6 @@
 To use GNU "Auto" tools (AutoConf/AutoMake/LibTool), run
 /bin/sh build/gnuauto/setup.sh from the top-level Tidy
-directory.  This script will copy the appropriate 
+directory.  This script will copy the appropriate
 Makefile.am files into each source directory, along with
 configure.in.
 

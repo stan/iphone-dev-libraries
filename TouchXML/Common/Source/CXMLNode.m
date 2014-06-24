@@ -70,7 +70,7 @@ else
 {
 NSAssert(_node != NULL, @"TODO");
 xmlChar *theXMLString;
-if ( _node->type == CXMLTextKind ) 
+if ( _node->type == CXMLTextKind )
 	theXMLString = _node->content;
 else
 	theXMLString = xmlNodeListGetString(_node->doc, _node->children, YES);
@@ -148,7 +148,7 @@ while (theCurrentNode != NULL)
 	[theChildren addObject:theNode];
 	theCurrentNode = theCurrentNode->next;
 	}
-return(theChildren);      
+return(theChildren);
 }
 
 - (CXMLNode *)childAtIndex:(NSUInteger)index
@@ -271,7 +271,7 @@ else
 		xmlNodePtr theNode = theXPathObject->nodesetval->nodeTab[N];
 		[theArray addObject:[CXMLNode nodeWithLibXMLNode:theNode]];
 		}
-		
+
 	theResult = theArray;
 	}
 

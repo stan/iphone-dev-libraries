@@ -16,7 +16,7 @@
 # norootforbuild
 # neededforbuild  doxygen libxslt libtool
 
-BuildRequires: doxygen libxslt libtool 
+BuildRequires: doxygen libxslt libtool
 
 Name:                 tidy
 Version:              1.0
@@ -54,7 +54,7 @@ are logged as "errors" rather than "warnings".
 Authors:
 --------
 
-    Tidy was written by Dave Raggett <dsr@w3.org> and is now maintained 
+    Tidy was written by Dave Raggett <dsr@w3.org> and is now maintained
     and developed by the Tidy team at http://tidy.sourceforge.net/.
 
 
@@ -78,13 +78,13 @@ Autoreqprov:    on
 
 %description -n libtidy-devel
 
-This package contains the headers, the shared libraries and the API 
-documentation which programmers will need to develop applications based on 
+This package contains the headers, the shared libraries and the API
+documentation which programmers will need to develop applications based on
 tidy.
 
 %debug_package
 %prep
-%setup -q -n %{name} -b 1 
+%setup -q -n %{name} -b 1
 mv htmldoc/doxygen.cfg Doxyfile
 
 

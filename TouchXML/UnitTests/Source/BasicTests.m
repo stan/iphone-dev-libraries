@@ -70,7 +70,7 @@ for (CXMLNode *theNode in theArray)
 	STAssertEquals([theNode index], [theArray indexOfObject:theNode], NULL);
 	STAssertEquals((int)[theNode level], 2, NULL);
 	}
-	
+
 STAssertEquals([[theXMLDocument rootElement] childAtIndex:0], [theArray objectAtIndex:0], NULL);
 STAssertEquals([[theXMLDocument rootElement] childAtIndex:1], [theArray objectAtIndex:1], NULL);
 STAssertEquals([[theXMLDocument rootElement] childAtIndex:2], [theArray objectAtIndex:2], NULL);
